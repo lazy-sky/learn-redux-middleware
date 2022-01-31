@@ -7,12 +7,13 @@ export const createPromiseThunk = (type, promiseCreator) => {
   return (param) => async (dispatch) => {
     dispatch({ type, param });
     try {
+      // 결과물의 이름을 payload 라는 이름으로 통일
       const payload = await promiseCreator(param);
       dispatch({ type: SUCCESS, payload });
     } catch (e) {
       dispatch({ type: ERROR, payload: e, error: true });
     }
-  }
+  };
 };
 
 // 리듀서에서 사용 할 수 있는 여러 유틸 함수들
